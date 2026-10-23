@@ -99,22 +99,6 @@ Expected response:
 Hello from my DevOps CI/CD pipeline!
 ```
 
-## Screenshots
-
-Add your project screenshots to the `screenshots/` directory and update the links below.
-
-### Jenkins Pipeline Success
-![Jenkins Pipeline Success](screenshots/01-jenkins-pipeline-success.png)
-
-### Docker Container Running
-![Docker Container Running](screenshots/02-docker-container-running.png)
-
-### Application Response
-![Application Response](screenshots/03-application-response.png)
-
-### GitHub Repository
-![GitHub Repository](screenshots/04-github-repository.png)
-
 ## Key Learnings
 
 - Creating a Jenkins Declarative Pipeline using a `Jenkinsfile`

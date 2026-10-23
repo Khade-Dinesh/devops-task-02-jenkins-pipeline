@@ -17,16 +17,16 @@ pipeline {
             }
         }
 
+        
         stage('Test') {
             steps {
                 echo 'Running application tests...'
                 dir('app') {
-                    sh 'npm ci'
-                    sh 'npm test'
+                    sh 'docker run --rm -v "$PWD:/app" -w /app node:22-alpine npm ci'
+                    sh 'docker run --rm -v "$PWD:/app" -w /app node:22-alpine npm test'
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying application with Docker...'

@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -17,21 +18,33 @@ pipeline {
             }
         }
 
-        
         stage('Test') {
             steps {
-                echo 'Running application tests...'
+                echo 'Running application tests inside Docker...'
                 dir('app') {
-                    sh 'docker run --rm -v "$PWD:/app" -w /app node:22-alpine npm ci'
-                    sh 'docker run --rm -v "$PWD:/app" -w /app node:22-alpine npm test'
+                    sh '''
+                        docker run --rm \
+                          -v "$PWD:/app" \
+                          -w /app \
+                          node:22-alpine npm ci
+                    '''
+
+                    sh '''
+                        docker run --rm \
+                          -v "$PWD:/app" \
+                          -w /app \
+                          node:22-alpine npm test
+                    '''
                 }
             }
         }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying application with Docker...'
                 sh '''
                     docker rm -f ${CONTAINER_NAME} || true
+
                     docker run -d \
                       --name ${CONTAINER_NAME} \
                       --restart unless-stopped \
@@ -51,3 +64,4 @@ pipeline {
         }
     }
 }
+
